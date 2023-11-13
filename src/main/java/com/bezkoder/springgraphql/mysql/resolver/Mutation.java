@@ -9,9 +9,10 @@ import com.bezkoder.springgraphql.mysql.model.Author;
 import com.bezkoder.springgraphql.mysql.model.Tutorial;
 import com.bezkoder.springgraphql.mysql.repository.AuthorRepository;
 import com.bezkoder.springgraphql.mysql.repository.TutorialRepository;
-import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 
-import javassist.NotFoundException;
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import jakarta.persistence.EntityNotFoundException;
+
 
 @Component
 public class Mutation implements GraphQLMutationResolver {
@@ -50,7 +51,7 @@ public class Mutation implements GraphQLMutationResolver {
 		return true;
 	}
 
-	public Tutorial updateTutorial(Long id, String title, String description) throws NotFoundException {
+	public Tutorial updateTutorial(Long id, String title, String description) throws EntityNotFoundException {
 		Optional<Tutorial> optTutorial = tutorialRepository.findById(id);
 
 		if (optTutorial.isPresent()) {
@@ -65,6 +66,6 @@ public class Mutation implements GraphQLMutationResolver {
 			return tutorial;
 		}
 
-		throw new NotFoundException("Not found Tutorial to update!");
+		throw new EntityNotFoundException("Not found Tutorial to update!");
 	}
 }

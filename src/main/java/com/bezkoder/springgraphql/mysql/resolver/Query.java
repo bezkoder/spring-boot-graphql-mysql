@@ -7,12 +7,20 @@ import com.bezkoder.springgraphql.mysql.model.Author;
 import com.bezkoder.springgraphql.mysql.model.Tutorial;
 import com.bezkoder.springgraphql.mysql.repository.AuthorRepository;
 import com.bezkoder.springgraphql.mysql.repository.TutorialRepository;
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+
+import graphql.kickstart.tools.GraphQLQueryResolver;
+import graphql.scalars.ExtendedScalars;
+import graphql.schema.GraphQLScalarType;
 
 @Component
 public class Query implements GraphQLQueryResolver {
 	private AuthorRepository authorRepository;
 	private TutorialRepository tutorialRepository;
+	
+	GraphQLScalarType longScalar =
+      ExtendedScalars.newAliasedScalar("Long")
+          .aliasedScalar(ExtendedScalars.GraphQLLong)
+          .build();
 
 	@Autowired
 	public Query(AuthorRepository authorRepository, TutorialRepository tutorialRepository) {

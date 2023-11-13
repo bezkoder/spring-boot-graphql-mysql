@@ -1,3 +1,5 @@
+scalar Long
+
 type Author {
 	id: ID!
 	name: String!
